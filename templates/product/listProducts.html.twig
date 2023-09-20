@@ -9,12 +9,12 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
-
-        This friendly message is coming from:
+        <h1>Liste des produits</h1>
         <ul>
-            <li>Your controller at <code><a href="{{ '/Users/theo/Documents/Dev/WRA506-Symfony/src/Controller/ProductController.php'|file_link(0) }}">src/Controller/ProductController.php</a></code></li>
-            <li>Your template at <code><a href="{{ '/Users/theo/Documents/Dev/WRA506-Symfony/templates/product/index.html.twig'|file_link(0) }}">templates/product/index.html.twig</a></code></li>
+            {% for id in 1..10 %}
+                {% set randomId = random(1, 1000) %}
+                <li><a href="{{ path('app_view_product', {'id': randomId}) }}">Produit {{ randomId }}</a></li>
+            {% endfor %}
         </ul>
     </div>
 {% endblock %}
