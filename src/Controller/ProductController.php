@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Services\Sluggify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,14 +18,6 @@ class ProductController extends AbstractController
         ]);
     }
 
-//    #[Route('/product/{id}', name: 'app_view_product')]
-//    public function viewProducts(Request $request): Response
-//    {
-//        $id = $request->get('id');
-//        return $this->render('product/viewProduct.html.twig', [
-//            'pageTitle' => "Affichage du produit",
-//        ]);
-//    }
     #[Route('/product/{id}', name: 'app_view_product')]
     public function viewProducts(int $id): Response
     {
