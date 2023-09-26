@@ -9,11 +9,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['movie:read']],
 )]
+
 class Movie
 {
     #[ORM\Id]
@@ -32,18 +36,25 @@ class Movie
 
     #[ORM\Column(length: 70)]
     #[Groups(['movie:read', 'actor:read', 'category:read'])]
+    #[Assert\NotBlank(message: 'Le titre est obligatoire')]
+    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Groups(['movie:read'])]
+    #[Assert\NotBlank(message: 'La description est obligatoire')]
+    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups(['movie:read'])]
+    #[Assert\NotBlank(message: 'La date de sortie est obligatoire')]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column]
     #[Groups(['movie:read'])]
+    #[Assert\NotBlank(message: 'La durée est obligatoire')]
+    #[ApiFilter(SearchFilter::class, strategy: 'exact')]
     private ?int $duration = null;
 
     public function __construct()
