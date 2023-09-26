@@ -8,32 +8,42 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['movie:read']],
+)]
 class Movie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['movie:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'movies')]
+    #[Groups(['movie:read'])]
     private ?Category $category = null;
 
     #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
+    #[Groups(['movie:read'])]
     private Collection $actor;
 
     #[ORM\Column(length: 70)]
+    #[Groups(['movie:read', 'actor:read', 'category:read'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['movie:read'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['movie:read'])]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column]
+    #[Groups(['movie:read'])]
     private ?int $duration = null;
 
     public function __construct()

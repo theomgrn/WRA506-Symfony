@@ -7,23 +7,30 @@ use App\Repository\ActorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ActorRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['actor:read']],
+)]
 class Actor
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['actor:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 70)]
+    #[Groups(['movie:read', 'actor:read'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 70)]
+    #[Groups(['movie:read', 'actor:read'])]
     private ?string $lastName = null;
 
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'actor')]
+    #[Groups(['actor:read'])]
     private Collection $movies;
 
     public function __construct()
