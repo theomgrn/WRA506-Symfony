@@ -29,6 +29,7 @@ class Actor
 
     #[ORM\Column(length: 70)]
     #[Groups(['movie:read', 'actor:read'])]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire')]
     private ?string $lastName = null;
 
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'actor')]
