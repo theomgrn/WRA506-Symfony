@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ActorRepository::class)]
 #[ApiResource(
@@ -23,15 +24,21 @@ class Actor
 
     #[ORM\Column(length: 70)]
     #[Groups(['movie:read', 'actor:read'])]
+    #[Assert\NotBlank(message: 'Le prénom est obligatoire')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 70)]
     #[Groups(['movie:read', 'actor:read'])]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire')]
     private ?string $lastName = null;
 
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'actor')]
     #[Groups(['actor:read'])]
     private Collection $movies;
+
+    #[ORM\ManyToOne(inversedBy: 'actor')]
+    #[Groups(['actor:read'])]
+    private ?Nationality $nationality = null;
 
     public function __construct()
     {
@@ -90,6 +97,18 @@ class Actor
         if ($this->movies->removeElement($movie)) {
             $movie->removeActor($this);
         }
+
+        return $this;
+    }
+
+    public function getNationality(): ?Nationality
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?Nationality $nationality): static
+    {
+        $this->nationality = $nationality;
 
         return $this;
     }
