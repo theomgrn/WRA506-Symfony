@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="981b7a0c-da03-4e02-93cd-c8a770405312" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bilan-partie-1-request.md" beforeDir="false" afterPath="$PROJECT_DIR$/bilan-partie-1-request.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,11 +30,11 @@
                 <list>
                   <RecentBranch>
                     <option name="branchName" value="develop" />
-                    <option name="lastUsedInstant" value="1695892787" />
+                    <option name="lastUsedInstant" value="1695893688" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="main" />
-                    <option name="lastUsedInstant" value="1695892709" />
+                    <option name="lastUsedInstant" value="1695893464" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="feature/validation-filtre-pagination-ApiPlatform" />
@@ -240,7 +241,7 @@
       <option name="presentableId" value="Default" />
       <updated>1695211035051</updated>
       <workItem from="1695211036137" duration="728000" />
-      <workItem from="1695718231026" duration="6466000" />
+      <workItem from="1695718231026" duration="7379000" />
     </task>
     <servers />
   </component>
