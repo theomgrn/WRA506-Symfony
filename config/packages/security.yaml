@@ -11,38 +11,26 @@ security:
         class: App\Entity\User
         property: email
   firewalls:
-    login:
-      pattern: ^/api/login
-      stateless: true
-      json_login:
-        check_path: /api/login_check
-        success_handler: lexik_jwt_authentication.handler.authentication_success
-        failure_handler: lexik_jwt_authentication.handler.authentication_failure
-
-    api:
-      pattern: ^/api
-      stateless: true
-      jwt: ~
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
-      lazy: true
+      stateless: true
       provider: app_user_provider
       json_login:
-        check_path: app_login
+        check_path: /login_check
         username_path: email
         password_path: password
-      logout:
-        path: app_logout
-        # where to redirect after logout
-        # target: app_any_route
+        success_handler: lexik_jwt_authentication.handler.authentication_success
+        failure_handler: lexik_jwt_authentication.handler.authentication_failure
+      jwt: ~
   access_control:
-    - { path: ^/api/docs, roles: PUBLIC_ACCESS } # Allows accessing API documentations and Swagger UI docs
-    - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
-    - { path: /api, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/$, roles: IS_AUTHENTICATED_FULLY } # Allows accessing the Swagger UI
+    - { path: ^/api, roles: PUBLIC_ACCESS } # Allows accessing API documentations and Swagger UI docs
+    - { path: ^/login_check, roles: PUBLIC_ACCESS }
+    - { path: /api/movies, roles: IS_AUTHENTICATED_FULLY }
 
-      # activate different ways to authenticate
+    # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#the-firewall
 
       # https://symfony.com/doc/current/security/impersonating_user.html
