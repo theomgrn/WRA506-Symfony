@@ -5,5 +5,4 @@ controllers:
     type: attribute
 
 api_login_check:
-    path: /login_check
-    methods: ['POST']
+    path: /api/login_check
